@@ -52,8 +52,8 @@ describe('api', function() {
           name: 'Whitney Young',
           specialty: 'Proctologist',
         }]);
-        done();
-      });
+      })
+      .done(done, done);
     });
   });
 
@@ -65,13 +65,12 @@ describe('api', function() {
       puppies: '12 of them'
     };
     request.post(baseURL + '/api/doctors', { form: data }, function(err, response, body) {
-      var bodyObject = JSON.parse(body);
-      expect(bodyObject).to.eql({ error: 'Invalid request. Properties don\'t match allowed values.' });
+      expect(JSON.parse(body)).to.eql({ error: 'Invalid request. Properties don\'t match allowed values.' });
       expect(response.statusCode).to.eql(400);
       Person.fetchAll().then(function(people) {
         expect(doctors.toJSON()).to.eql([]);
-        done();
-      });
+      })
+      .done(done, done);
     });
   });
 
