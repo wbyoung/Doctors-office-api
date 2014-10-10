@@ -83,11 +83,13 @@ describe('api', function() {
       Doctor.fetchAll().then(function(doctors) {
     // Need to post some data to the database before we try to pull it
         request.get(baseURL + '/api/doctors', function(error, response, body) {
-          expect(JSON.parse(body)).to.eql([{
-            id: 1,
-            name: 'Whitney Young',
-            specialty: 'Proctologist',
-          }]);
+          expect(JSON.parse(body)).to.eql({
+            doctors: [{
+              id: 1,
+              name: 'Whitney Young',
+              specialty: 'Proctologist',
+            }]
+          });
           done();
         });
       });

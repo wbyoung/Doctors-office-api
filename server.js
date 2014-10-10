@@ -32,7 +32,7 @@ app.get('/', function(req, res) {
 
 app.get('/api/doctors', function(req, res) {
   Doctor.fetchAll().then(function(doctors) {
-    res.json(doctors);
+    res.json({ doctors: doctors });
   });
 });
 
