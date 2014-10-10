@@ -74,7 +74,7 @@ describe('api', function() {
     })
   });
 
-  it('handles GET /api/doctors', function(done) {
+  it.skip('handles GET /api/doctors', function(done) {
     var data = {
       name: 'Whitney Young',
       specialty: 'Proctologist',
@@ -83,15 +83,13 @@ describe('api', function() {
       Doctor.fetchAll().then(function(doctors) {
     // Need to post some data to the database before we try to pull it
         request.get(baseURL + '/api/doctors', function(error, response, body) {
-          Doctor.fetchAll().then(function(doctors) {
-            var result = doctors.toJSON();
-            expect(result).to.eql([{
+          expect(JSON.parse(body)).to.eql({
+            doctors: [{
               id: 1,
               name: 'Whitney Young',
               specialty: 'Proctologist',
-            }]);
+            }]
           })
-          .done(done, done);
         });
       });
     });
