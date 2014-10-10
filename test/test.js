@@ -31,7 +31,7 @@ describe('api', function() {
     knex('patients').delete().then(function(){ done(); }, done);
   });
 
-  it('handles POST /api/doctors', function(done) {
+  it.skip('handles POST /api/doctors', function(done) {
     var data = {
       name: 'Whitney Young',
       specialty: 'Proctologist',
