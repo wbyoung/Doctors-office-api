@@ -39,13 +39,17 @@ app.get('/api/doctors', function(req, res) {
 // returns: {"doctors": []}
 app.post('/api/doctors', function(req, res) {
 
-  var properties = _.keys(req.body);
-  // TODO: this assumes some order of things which is wrong
-  if (!_.isEqual(properties, ['name', 'specialty'])) {
-    res.status(400);
-    res.json({ error: 'Invalid request. Properties don\'t match allowed values.' });
-  }
-  else {
+  var paramsValid = _(req.body)
+    .keys()
+    .without('firstName', 'lastName', 'address')
+    .size() === 0;
+
+  var paramsValid = _(req.body)
+    .keys()
+    .without('firstName', 'lastName', 'address')
+    .size() === 0;
+
+  if (paramsValid) {
     Doctor.forge(req.body).save().then(function(doc) {
       res.json({ doc: doc });
     })
@@ -54,6 +58,10 @@ app.post('/api/doctors', function(req, res) {
       res.json({ error: 'Unhandled exception' });
     })
     .done();
+  }
+  else {
+    res.status(400);
+    res.json({ error: 'Invalid request. Properties don\'t match allowed values.' });
   }
 });
 
