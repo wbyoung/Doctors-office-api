@@ -71,17 +71,25 @@ describe('api', function() {
         expect(doctors.toJSON()).to.eql([]);
       })
       .done(done, done);
-    });
+    })
   });
 
   it('handles GET /api/doctors', function(done) {
+    var data = {
+      name: 'Whitney Young',
+      specialty: 'Proctologist',
+    };
+    request.post(baseURL + '/api/doctors', { form: data }, function(err, response, body) {
+      Doctor.fetchAll().then(function(){
     // Need to post some data to the database before we try to pull it
-    request.get(baseURL + '/api/doctors', function(error, response, body) {
-      Doctor.fetchAll().then(function(doctors) {
-        var result = JSON.parse(body);
-        console.log(result);
+        request.get(baseURL + '/api/doctors', function(error, response, body) {
+          Doctor.fetchAll().then(function(doctors) {
+            var result = JSON.parse(body);
+            console.log(result);
+          });
+          done();
+        });
       });
-      done();
     });
   });
 });
