@@ -41,11 +41,6 @@ app.post('/api/doctors', function(req, res) {
 
   var paramsValid = _(req.body)
     .keys()
-    .without('firstName', 'lastName', 'address')
-    .size() === 0;
-
-  var paramsValid = _(req.body)
-    .keys()
     .without('name', 'specialty')
     .size() === 0;
 
