@@ -18,5 +18,10 @@
   "bugs": {
     "url": "https://github.com/Andreamsofcake/Doctors-office-api/issues"
   },
-  "homepage": "https://github.com/Andreamsofcake/Doctors-office-api"
+  "homepage": "https://github.com/Andreamsofcake/Doctors-office-api",
+  "devDependencies": {
+    "chai": "^1.9.2",
+    "mocha": "^1.21.4",
+    "request": "^2.45.0"
+  }
 }
