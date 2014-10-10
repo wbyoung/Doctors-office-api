@@ -80,14 +80,18 @@ describe('api', function() {
       specialty: 'Proctologist',
     };
     request.post(baseURL + '/api/doctors', { form: data }, function(err, response, body) {
-      Doctor.fetchAll().then(function(){
+      Doctor.fetchAll().then(function(doctors) {
     // Need to post some data to the database before we try to pull it
         request.get(baseURL + '/api/doctors', function(error, response, body) {
           Doctor.fetchAll().then(function(doctors) {
-            var result = JSON.parse(body);
-            console.log(result);
-          });
-          done();
+            var result = doctors.toJSON();
+            expect(result).to.eql([{
+              id: 1,
+              name: 'Whitney Young',
+              specialty: 'Proctologist',
+            }]);
+          })
+          .done(done, done);
         });
       });
     });
