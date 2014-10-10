@@ -25,7 +25,7 @@ describe('api', function() {
   after(function(done) {
     server.close(done);
   });
-//two test one for doctors one for patients 
+//two test one for doctors one for patients
   beforeEach(function(done) {
     knex('doctors').delete().then(function() {
       return knex.raw('alter sequence doctors_id_seq restart');
