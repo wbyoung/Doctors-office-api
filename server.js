@@ -31,7 +31,9 @@ app.get('/', function(req, res) {
 });
 
 app.get('/api/doctors', function(req, res) {
-  res.json({ doctors: _.values(doctors) });
+  Doctor.fetchAll().then(function(doctors) {
+    res.json(doctors);
+  });
 });
 
 
