@@ -28,7 +28,7 @@ describe('api', function() {
 //two test one for doctors one for patients 
   beforeEach(function(done) {
     knex('doctors').delete().then(function() { done(); }, done);
-    knex('patients').delete().then(function(){ done(); }, done);
+    // knex('patients').delete().then(function(){ done(); }, done);
   });
 
   it.skip('handles POST /api/doctors', function(done) {

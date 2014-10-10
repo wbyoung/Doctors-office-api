@@ -60,7 +60,7 @@ app.post('/api/doctors', function(req, res) {
 app.put('/api/doctors/:id', function(req, res) {
   var doc = doctors[req.params.id];
   if (doc) {
-    doc = _.pick(req.body, 'firstName', 'lastName', 'address');
+    doc = _.pick(req.body, 'name', 'specialty');
     doc.id = req.params.id;
     doctors[doc.id] = doc;
   };
