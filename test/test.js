@@ -57,7 +57,7 @@ describe('api', function() {
     });
   });
 
-  it.skip('rejects POST /api/doctors when there is too much info', function(done) {
+  it('rejects POST /api/doctors when there is too much info', function(done) {
     var data = {
       firstName: 'Whitney',
       lastName: 'Young',
@@ -67,7 +67,7 @@ describe('api', function() {
     request.post(baseURL + '/api/doctors', { form: data }, function(err, response, body) {
       expect(JSON.parse(body)).to.eql({ error: 'Invalid request. Properties don\'t match allowed values.' });
       expect(response.statusCode).to.eql(400);
-      Person.fetchAll().then(function(people) {
+      Doctor.fetchAll().then(function(doctors) {
         expect(doctors.toJSON()).to.eql([]);
       })
       .done(done, done);
