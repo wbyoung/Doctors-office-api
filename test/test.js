@@ -39,12 +39,13 @@ describe('api', function() {
     request.post(baseURL + '/api/doctors', { form: data }, function(err, response, body) {
       Doctor.fetchAll().then(function(doctors) {
         var bodyObject = JSON.parse(body);
-        delete bodyObject.doctor.id;
+        delete bodyObject.doc.id;
         var doctorsWithoutIds = doctors.toJSON().map(function(doc) {
-          return _.omit(person, 'id');
+          return _.omit(doc, 'id');
         });
-        expect(bodyObject).to.eql({
-          person: {
+        var doctorObject = { doctor: doctorsWithoutIds[0] };
+        expect(doctorObject).to.eql({
+          doctor: {
             name: 'Whitney Young',
             specialty: 'Proctologist',
           }
