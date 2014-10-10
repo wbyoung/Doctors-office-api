@@ -74,4 +74,14 @@ describe('api', function() {
     });
   });
 
+  it('handles GET /api/doctors', function(done) {
+    // Need to post some data to the database before we try to pull it
+    request.get(baseURL + '/api/doctors', function(error, response, body) {
+      Doctor.fetchAll().then(function(doctors) {
+        var result = JSON.parse(body);
+        console.log(result);
+      });
+      done();
+    });
+  });
 });
