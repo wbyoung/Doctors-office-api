@@ -41,14 +41,14 @@ describe('api', function() {
     request.post(baseURL + '/api/doctors', { form: data }, function(err, response, body) {
       Doctor.fetchAll().then(function(doctors) {
         expect(JSON.parse(body)).to.eql({
-          person: {
+          doc: {
             id: 1,
             name: 'Whitney Young',
             specialty: 'Proctologist',
           }
         })
         expect(doctors.toJSON()).to.eql([{
-            id: 1,
+          id: 1,
           name: 'Whitney Young',
           specialty: 'Proctologist',
         }]);
