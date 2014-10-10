@@ -27,9 +27,7 @@ describe('api', function() {
   });
 //two test one for doctors one for patients
   beforeEach(function(done) {
-    knex('doctors').delete().then(function() {
-      return knex.raw('alter sequence doctors_id_seq restart');
-    }).then(function() { done(); }, done);
+    knex('doctors').delete().then(function() { done(); }, done);
     // knex('patients').delete().then(function(){ done(); }, done);
   });
 
@@ -40,15 +38,18 @@ describe('api', function() {
     };
     request.post(baseURL + '/api/doctors', { form: data }, function(err, response, body) {
       Doctor.fetchAll().then(function(doctors) {
-        expect(JSON.parse(body)).to.eql({
+        var bodyObject = JSON.parse(body);
+        delete bodyObject.doctor.id;
+        var doctorsWithoutIds = doctors.toJSON().map(function(doc) {
+          return _.omit(person, 'id');
+        });
+        expect(bodyObject).to.eql({
           person: {
-            id: 1,
             name: 'Whitney Young',
             specialty: 'Proctologist',
           }
         })
-        expect(doctors.toJSON()).to.eql([{
-          id: 1,
+        expect(doctorsWithoutIds).to.eql([{
           name: 'Whitney Young',
           specialty: 'Proctologist',
         }]);
