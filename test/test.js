@@ -58,7 +58,7 @@ describe('api', function() {
     });
   });
 
-  it.skip('rejects POST /api/people when there is too much info', function(done) {
+  it.skip('rejects POST /api/doctors when there is too much info', function(done) {
     var data = {
       firstName: 'Whitney',
       lastName: 'Young',

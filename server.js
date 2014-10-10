@@ -41,13 +41,13 @@ app.post('/api/doctors', function(req, res) {
 
   var properties = _.keys(req.body);
   // TODO: this assumes some order of things which is wrong
-  if (!_.isEqual(properties, ['firstName', 'lastName', 'address'])) {
+  if (!_.isEqual(properties, ['name', 'specialty'])) {
     res.status(400);
     res.json({ error: 'Invalid request. Properties don\'t match allowed values.' });
   }
   else {
-    Person.forge(req.body).save().then(function(person) {
-      res.json({ person: person });
+    Doctor.forge(req.body).save().then(function(doc) {
+      res.json({ doc: doc });
     })
     .catch(function(error) {
       res.status(500);
@@ -58,21 +58,21 @@ app.post('/api/doctors', function(req, res) {
 });
 
 app.put('/api/doctors/:id', function(req, res) {
-  var person = doctors[req.params.id];
-  if (person) {
-    person = _.pick(req.body, 'firstName', 'lastName', 'address');
-    person.id = req.params.id;
-    doctors[person.id] = person;
+  var doc = doctors[req.params.id];
+  if (doc) {
+    doc = _.pick(req.body, 'firstName', 'lastName', 'address');
+    doc.id = req.params.id;
+    doctors[doc.id] = doc;
   };
-  res.json({ person: person });
+  res.json({ doc: doc });
 });
 
 app.delete('/api/doctors/:id', function(req, res) {
-  var person = doctors[req.params.id];
-  if (person) {
-    delete doctors[person.id];
+  var doc = doctors[req.params.id];
+  if (doc) {
+    delete doctors[doc.id];
   }
-  res.json({ person: person });
+  res.json({ doc: doc });
 });
 
 // curl -X GET http://localhost:8000/api/doctors
@@ -90,7 +90,7 @@ module.exports = {
   app: app,
   knex: knex,
   bookshelf: bookshelf,
-  Person: Person
+  Doctor: Doctor
 };
 
 // if this was done via the command line & not required from another file
